@@ -4,46 +4,43 @@
         hour = minute * 60,
         day = hour * 24;
 
+  // Birthday countdown setup
   let today = new Date(),
-      dd = String(today.getDate()).padStart(2, "0"),
-      mm = String(today.getMonth() + 1).padStart(2, "0"),
-      yyyy = today.getFullYear(),
-      nextYear = yyyy + 1,
-      dayMonth = "10/24/",
-      birthday = dayMonth + yyyy;
+      birthday = new Date(today.getFullYear(), 9, 24); // October 22 (Month is 0-indexed)
   
-  today = mm + "/" + dd + "/" + yyyy;
   if (today > birthday) {
-    birthday = dayMonth + nextYear;
+    birthday.setFullYear(today.getFullYear() + 1); // Next year if today is past the birthday
   }
   
-  const countDown = new Date(birthday).getTime(),
-        x = setInterval(function() {    
-          const now = new Date().getTime(),
-                distance = countDown - now;
+  const countDown = birthday.getTime(),
+        countdownInterval = setInterval(updateCountdown, 1000);
 
-          document.getElementById("days").innerText = Math.floor(distance / (day));
-          document.getElementById("hours").innerText = Math.floor((distance % (day)) / (hour));
-          document.getElementById("minutes").innerText = Math.floor((distance % (hour)) / (minute));
-          document.getElementById("seconds").innerText = Math.floor((distance % (minute)) / second);
+  function updateCountdown() {
+    const now = new Date().getTime(),
+          distance = countDown - now;
 
-          if (distance < 0) {
-            document.getElementById("headline").innerText = "It's Party Time!";
-            document.getElementById("countdown").style.display = "none";
-            document.getElementById("content").style.display = "block";
-            clearInterval(x);
-            startConfetti();
-          }
-        }, 1000);
+    document.getElementById("days").innerText = Math.floor(distance / day);
+    document.getElementById("hours").innerText = Math.floor((distance % day) / hour);
+    document.getElementById("minutes").innerText = Math.floor((distance % hour) / minute);
+    document.getElementById("seconds").innerText = Math.floor((distance % minute) / second);
 
-  // Variables to control emoji rain
+    // Check if countdown is complete
+    if (distance < 0) {
+      clearInterval(countdownInterval);
+      document.getElementById("headline").innerText = "It's Party Time!";
+      document.getElementById("countdown").style.display = "none";
+      document.getElementById("content").style.display = "block";
+      startConfetti();
+    }
+  }
+
+  // Emoji rain setup
   let emojiRainInterval;
-  
-  // Emoji rain effect - only 🌻 emoji
   const emojiButton = document.getElementById('emojiButton');
-  emojiButton.addEventListener('click', () => {
-    startEmojiRain();
-  });
+  const stopButton = document.getElementById('stopButton');
+
+  emojiButton.addEventListener('click', startEmojiRain);
+  stopButton.addEventListener('click', stopEmojiRain);
 
   function startEmojiRain() {
     if (emojiRainInterval) return; // Prevent multiple intervals
@@ -63,22 +60,20 @@
     }, 300);
   }
 
-  // Stop emoji rain
-  const stopButton = document.getElementById('stopButton');
-  stopButton.addEventListener('click', () => {
+  function stopEmojiRain() {
     clearInterval(emojiRainInterval);
     emojiRainInterval = null;
-  });
+  }
 
-  // Confetti animation setup (same as before)
+  // Confetti animation setup
   function startConfetti() {
     const confetti = document.getElementById('confetti');
     const ctx = confetti.getContext('2d');
     confetti.width = window.innerWidth;
     confetti.height = window.innerHeight;
 
-    let particles = [],
-        particleCount = 100;
+    const particles = [];
+    const particleCount = 100;
 
     function randomColor() {
       const colors = ['#ff0', '#f00', '#0f0', '#00f', '#ff69b4'];
@@ -106,9 +101,10 @@
         ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
         ctx.fillStyle = p.color;
         ctx.fill();
-        p.y += Math.cos(p.d) + 1;
+        p.y += Math.cos(p.d) + 1; // Gravity effect
         p.x += Math.sin(p.tilt);
 
+        // Reset particle if it falls out of view
         if (p.y > confetti.height) {
           particles[i] = {
             x: Math.random() * confetti.width,
@@ -120,6 +116,7 @@
           };
         }
       });
+
       requestAnimationFrame(drawParticles);
     }
 
