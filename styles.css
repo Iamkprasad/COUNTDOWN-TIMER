@@ -1,7 +1,7 @@
 /* Base styling for the countdown page */
 :root {
   --smaller: .75;
-  --primary-bg: #ffeb3b;
+  --primary-bg: #ffffff; /* Changed to white */
   --text-color: #333;
 }
 
@@ -18,7 +18,7 @@ html, body {
 
 body {
   align-items: center;
-  background-color: var(--primary-bg);
+  background-color: var(--primary-bg); /* White background */
   display: flex;
   justify-content: center;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, "Helvetica Neue", sans-serif;
