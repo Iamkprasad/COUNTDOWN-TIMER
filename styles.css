@@ -2,7 +2,7 @@
 :root {
   --smaller: .75;
   --primary-bg: #ffffff; /* White background */
-  --text-color: #333;
+  --text-color: #000000; /* Pure black text */
 }
 
 * {
@@ -19,7 +19,7 @@ html, body {
 body {
   align-items: center;
   background-color: var(--primary-bg); /* White background */
-  background-image: url('bg.png'); /* Image in the background */
+  background-image: url('image/bg.png'); /* Background image */
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
@@ -73,7 +73,7 @@ li {
 li span {
   display: block;
   font-size: 4.5rem;
-  color: #444;
+  color: var(--text-color); /* Text color now pure black */
 }
 
 .emoji {
@@ -86,6 +86,28 @@ li span {
   padding: 0 .5rem;
 }
 
+/* Button styling for emoji rain */
+#emojiButton {
+  margin-top: 30px;
+  padding: 15px;
+  font-size: 1.2rem;
+  color: #fff;
+  background-color: #000; /* Black button */
+  border: none;
+  cursor: pointer;
+  text-transform: uppercase;
+  border-radius: 0;
+  z-index: 1;
+}
+
+#emojiButton:hover {
+  background-color: #333;
+}
+
+#emojiButton:active {
+  background-color: #555;
+}
+
 /* Confetti styling */
 canvas {
   position: absolute;
@@ -94,6 +116,25 @@ canvas {
   width: 100%;
   height: 100%;
   pointer-events: none;
+}
+
+/* Emoji rain animation */
+.emoji-rain {
+  position: fixed;
+  font-size: 2.5rem;
+  animation: fall linear infinite;
+  z-index: 100;
+}
+
+@keyframes fall {
+  0% {
+    transform: translateY(-100px);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(110vh);
+    opacity: 0;
+  }
 }
 
 /* Responsive styling */
@@ -108,5 +149,10 @@ canvas {
   
   li span {
     font-size: calc(3.375rem * var(--smaller));
+  }
+
+  #emojiButton {
+    font-size: 1rem;
+    padding: 10px;
   }
 }
