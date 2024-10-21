@@ -32,11 +32,34 @@
             document.getElementById("countdown").style.display = "none";
             document.getElementById("content").style.display = "block";
             clearInterval(x);
-            startConfetti(); // Trigger confetti when time is up
+            startConfetti();
           }
         }, 1000);
 
-  // Confetti animation setup
+  // Emoji rain effect
+  const emojiButton = document.getElementById('emojiButton');
+  emojiButton.addEventListener('click', () => {
+    startEmojiRain();
+  });
+
+  function startEmojiRain() {
+    const emojis = ['🎉', '🎂', '🥳', '🎁', '🎈', '🍾', '🎊'];
+    setInterval(() => {
+      const emojiElement = document.createElement('div');
+      emojiElement.innerText = emojis[Math.floor(Math.random() * emojis.length)];
+      emojiElement.classList.add('emoji-rain');
+      emojiElement.style.left = `${Math.random() * 100}vw`;
+      emojiElement.style.animationDuration = `${Math.random() * 3 + 2}s`; // Random fall speed
+      document.body.appendChild(emojiElement);
+
+      // Remove emoji after falling
+      setTimeout(() => {
+        emojiElement.remove();
+      }, 5000);
+    }, 300);
+  }
+
+  // Confetti animation setup (same as before)
   function startConfetti() {
     const confetti = document.getElementById('confetti');
     const ctx = confetti.getContext('2d');
@@ -71,14 +94,13 @@
         ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
         ctx.fillStyle = p.color;
         ctx.fill();
-
-        p.y += Math.cos(p.d) + 1 + p.r / 2;
-        p.x += Math.sin(p.d);
+        p.y += Math.cos(p.d) + 1;
+        p.x += Math.sin(p.tilt);
 
         if (p.y > confetti.height) {
           particles[i] = {
             x: Math.random() * confetti.width,
-            y: -10,
+            y: -p.r,
             r: p.r,
             d: p.d,
             color: p.color,
@@ -86,9 +108,10 @@
           };
         }
       });
+      requestAnimationFrame(drawParticles);
     }
 
     createParticles();
-    setInterval(drawParticles, 20);
+    drawParticles();
   }
-})();
+}());
