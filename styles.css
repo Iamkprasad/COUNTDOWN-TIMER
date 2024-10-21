@@ -1,7 +1,7 @@
 /* Base styling for the countdown page */
 :root {
   --smaller: .75;
-  --primary-bg: #ffffff; /* White background */
+  --primary-bg: #ffffff; /* White base background */
   --text-color: #000000; /* Pure black text */
 }
 
@@ -17,37 +17,21 @@ html, body {
 }
 
 body {
-  align-items: center;
-  background-color: var(--primary-bg); /* White background */
-  background-image: url('image/bg.png'); /* Background image */
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
   position: relative;
   display: flex;
   justify-content: center;
+  align-items: center;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, "Helvetica Neue", sans-serif;
   overflow: hidden;
-}
-
-/* Overlay to add opacity to the background image */
-body::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(255, 255, 255, 0.5); /* White overlay with 50% opacity */
-  z-index: 0; /* Ensures content appears above the overlay */
+  background-color: var(--primary-bg);
 }
 
 .container {
-  color: var(--text-color);
   text-align: center;
-  padding: 20px;
-  z-index: 1; /* Keeps container above background overlay */
+  z-index: 2; /* Keep it above the background */
+  color: var(--text-color);
   position: relative;
+  padding: 20px;
 }
 
 h1 {
@@ -73,7 +57,7 @@ li {
 li span {
   display: block;
   font-size: 4.5rem;
-  color: var(--text-color); /* Text color now pure black */
+  color: var(--text-color); /* Pure black text */
 }
 
 .emoji {
@@ -86,8 +70,8 @@ li span {
   padding: 0 .5rem;
 }
 
-/* Button styling for emoji rain */
-#emojiButton {
+/* Button styling for emoji rain and stop button */
+#emojiButton, #stopButton {
   margin-top: 30px;
   padding: 15px;
   font-size: 1.2rem;
@@ -97,14 +81,14 @@ li span {
   cursor: pointer;
   text-transform: uppercase;
   border-radius: 0;
-  z-index: 1;
+  z-index: 2;
 }
 
-#emojiButton:hover {
+#emojiButton:hover, #stopButton:hover {
   background-color: #333;
 }
 
-#emojiButton:active {
+#emojiButton:active, #stopButton:active {
   background-color: #555;
 }
 
@@ -151,8 +135,23 @@ canvas {
     font-size: calc(3.375rem * var(--smaller));
   }
 
-  #emojiButton {
+  #emojiButton, #stopButton {
     font-size: 1rem;
     padding: 10px;
   }
+}
+
+/* Background image */
+body::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('image/bg.png'); /* Background image */
+  background-size: cover;
+  background-position: center;
+  opacity: 0.5; /* 50% opacity */
+  z-index: 1;
 }
