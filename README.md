@@ -1,1 +1,1 @@
-https://iamkprasad.github.io/COUNTDOWN-TIMER/
+https://iamkprasad.github.io/countdown-timer/
