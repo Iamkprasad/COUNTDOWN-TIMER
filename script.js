@@ -36,17 +36,21 @@
           }
         }, 1000);
 
-  // Emoji rain effect
+  // Variables to control emoji rain
+  let emojiRainInterval;
+  
+  // Emoji rain effect - only 🌻 emoji
   const emojiButton = document.getElementById('emojiButton');
   emojiButton.addEventListener('click', () => {
     startEmojiRain();
   });
 
   function startEmojiRain() {
-    const emojis = ['🎉', '🎂', '🥳', '🎁', '🎈', '🍾', '🎊'];
-    setInterval(() => {
+    if (emojiRainInterval) return; // Prevent multiple intervals
+
+    emojiRainInterval = setInterval(() => {
       const emojiElement = document.createElement('div');
-      emojiElement.innerText = emojis[Math.floor(Math.random() * emojis.length)];
+      emojiElement.innerText = '🌻'; // Single emoji 🌻
       emojiElement.classList.add('emoji-rain');
       emojiElement.style.left = `${Math.random() * 100}vw`;
       emojiElement.style.animationDuration = `${Math.random() * 3 + 2}s`; // Random fall speed
@@ -58,6 +62,13 @@
       }, 5000);
     }, 300);
   }
+
+  // Stop emoji rain
+  const stopButton = document.getElementById('stopButton');
+  stopButton.addEventListener('click', () => {
+    clearInterval(emojiRainInterval);
+    emojiRainInterval = null;
+  });
 
   // Confetti animation setup (same as before)
   function startConfetti() {
@@ -82,13 +93,14 @@
           r: Math.random() * 4 + 1,
           d: Math.random() * particleCount,
           color: randomColor(),
-          tilt: Math.random() * 4 - 2
+          tilt: Math.random() * 10 - 10
         });
       }
     }
 
     function drawParticles() {
       ctx.clearRect(0, 0, confetti.width, confetti.height);
+
       particles.forEach((p, i) => {
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
