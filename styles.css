@@ -19,7 +19,7 @@ html, body {
 body {
   align-items: center;
   background-color: var(--primary-bg); /* White background */
-  background-image: url('image/bg.png'); /* Image in the background */
+  background-image: url('bg.png'); /* Image in the background */
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
