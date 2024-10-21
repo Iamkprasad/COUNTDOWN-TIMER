@@ -38,9 +38,13 @@
   let emojiRainInterval;
   const emojiButton = document.getElementById('emojiButton');
   const stopButton = document.getElementById('stopButton');
+  const externalButton = document.getElementById('externalButton'); // New button
 
   emojiButton.addEventListener('click', startEmojiRain);
   stopButton.addEventListener('click', stopEmojiRain);
+  externalButton.addEventListener('click', () => {
+    window.open('https://www.iamkprasad.com', '_blank'); // Open URL in a new tab
+  });
 
   function startEmojiRain() {
     if (emojiRainInterval) return; // Prevent multiple intervals
