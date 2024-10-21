@@ -2,7 +2,7 @@
 :root {
   --smaller: .75;
   --primary-bg: #ffffff; /* White base background */
-  --text-color: #000000; /* Pure black text */
+  --text-color: #000000; /* Black text */
 }
 
 * {
@@ -14,24 +14,24 @@
 html, body {
   height: 100%;
   margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, "Helvetica Neue", sans-serif;
 }
 
 body {
-  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, "Helvetica Neue", sans-serif;
-  overflow: hidden;
   background-color: var(--primary-bg);
+  position: relative;
+  overflow: hidden;
 }
 
 .container {
   text-align: center;
-  z-index: 2; /* Keep it above the background */
   color: var(--text-color);
-  position: relative;
   padding: 20px;
+  z-index: 2;
+  position: relative;
 }
 
 h1 {
@@ -57,7 +57,6 @@ li {
 li span {
   display: block;
   font-size: 4.5rem;
-  color: var(--text-color); /* Pure black text */
 }
 
 .emoji {
@@ -71,25 +70,28 @@ li span {
 }
 
 /* Button styling for emoji rain and stop button */
-#emojiButton, #stopButton {
+.btn {
   margin-top: 30px;
   padding: 15px;
   font-size: 1.2rem;
   color: #fff;
-  background-color: #000; /* Black button */
+  background-color: #000;
   border: none;
   cursor: pointer;
   text-transform: uppercase;
-  border-radius: 0;
+  border-radius: 4px;
+  transition: background-color 0.3s, transform 0.3s;
   z-index: 2;
 }
 
-#emojiButton:hover, #stopButton:hover {
-  background-color: #333;
+.btn:hover {
+  background-color: #444;
+  transform: scale(1.05);
 }
 
-#emojiButton:active, #stopButton:active {
-  background-color: #555;
+.btn:active {
+  background-color: #777;
+  transform: scale(0.95);
 }
 
 /* Confetti styling */
@@ -135,7 +137,7 @@ canvas {
     font-size: calc(3.375rem * var(--smaller));
   }
 
-  #emojiButton, #stopButton {
+  .btn {
     font-size: 1rem;
     padding: 10px;
   }
