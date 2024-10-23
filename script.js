@@ -43,7 +43,7 @@
   emojiButton.addEventListener('click', startEmojiRain);
   stopButton.addEventListener('click', stopEmojiRain);
   externalButton.addEventListener('click', () => {
-    window.open('https://www.instagram.com/blooming_stories7', '_blank'); // Open URL in a new tab
+    window.open('https://iamkprasad.github.io/birthday', '_blank'); // Open URL in a new tab
   });
 
   function startEmojiRain() {
